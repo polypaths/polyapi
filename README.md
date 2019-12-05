@@ -2,7 +2,7 @@
 
 polyapi.exe is a standalone command line tool on Windows (or Linux) that allows users to interact with Polypaths Enterprise through their scripts. 
 
-polyapi.exe is a wrapper of Polypaths' Web Service API. You can run a report that output a csv to your local drive, you can also create or update a job from a xml file in your local drive. And of course you can launch a job, query various status of the system, and manage the grid (restart the farm, stop/start any calc or calc central) all from your script that runs anywhere that has http access to yout internal Polypaths Enterprise server.
+polyapi.exe is a wrapper of Polypaths' Web Service API. You can run a report that output a csv to your local drive, you can also create or update a job from a xml file in your local drive (or created in-memory). And of course you can launch a job, query various status of the system, and manage the grid (restart the farm, stop/start any calc or calc central) all from your script that runs anywhere that has http access to yout internal Polypaths Enterprise server.
 
 ## Getting Started
 ```
@@ -12,12 +12,12 @@ npm update
 npm install -g pkg
 ```
 
-Create a api.bat file in this directory
+Create an **api.bat** file in this directory with the following code.
 ```
 @echo off
 set PP_API_HOST=cc_server
-set PP_API_USER=admin_user
-set PP_API_PASSWORD=admin_pass
+set PP_API_USER=adminuser
+set PP_API_PASSWORD=adminpass
 
 rem === following two lines toggle between launching a built exe versus the script  
 rem polyapi.exe %*
@@ -26,25 +26,39 @@ node index.js %*
 echo (ERRORLEVEL=%ERRORLEVEL%)
 ```
 
-Run the following command. If you see below message, you are in business! If not, modify the three PP_ environment variables, and/or check your firewall setting based on the error message you get. 
+Run the following command. If you see the following message that echos back from the server, you are in business! If not, modify the three PP_ environment variables, and/or check your firewall setting based on the error message you get.
+
 ```
-C:\dev\polyapi>api echo hello world
+C:\polyapi>api.bat echo hello world
 hello world
 (ERRORLEVEL=0)
 ```
+
+## Build .exe
+
+We use [PKG](https://github.com/zeit/pkg) to build the executable. the target could be: freebsd, linux, alpine, macos or win.
+
+Run the following command to build a polyapi.exe that runs on Windows
+
+    npm run build
+    or
+    pkg package.json --target node10-win-x64
+
 
 ## Usage
 
 Before you can call polyapi.exe, there are three environment variables you need to set:
 
-    set PP_API_HOST=entcalc01
+    set PP_API_HOST=cc_server
     set PP_API_USER=adminuser
     set PP_API_PASSWORD=adminpass
 
 You can set them in your script before your calls, you can use certutil or base64 to encrypt your clear text password. You can also provide them when you provision your host, so no password will be shown in any clear text. 
 
-Once set up, you can issue the following command to test your setup.
+Once set, you can issue the following command to test your setup.
 
+    node index.js echo hello world
+    or
     polyapi.exe echo hello world
 
 

@@ -23,8 +23,6 @@ async function upload(host,fn) {
 // returns {status, data}
 async function api(host,cmd,fname=null) {
     try {
-        //let ret = await axios.get('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd,  
-        //    {headers: { UserName: process.env.PP_API_USER,Password: process.env.PP_API_PASSWORD }});
 
         if (fname != null) {
             var options = {
@@ -45,17 +43,14 @@ async function api(host,cmd,fname=null) {
             };
             var rp = require('request-promise');
             let ret = await rp(options).promise();
-            // console.log("File "+fname+" uploaded.");
             return {status:200, data:ret};
         } else {
             let axiosConfig = {headers: { UserName: process.env.PP_API_USER,Password: process.env.PP_API_PASSWORD }};
             let form = null;
             try {
                 let ret = await axios.post('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
-                //console.log(ret);
                 return {status:ret.status, data:ret.data}; //ret.data.trim()
             } catch (e) {
-                // console.log(e);
                 if (e.response == undefined)
                     return {status:-1, data:e.errno};
                 else
@@ -100,7 +95,7 @@ async function batch(host,cmd_array){
     process.exit(0);
 };
 
-const version = "Polyapi v1.03 10/10/2019";
+const version = "Polyapi v1.04 12/5/2019";
 async function main() {
     var args = process.argv.slice(2);
     if (process.env.PP_API_HOST==undefined || process.env.PP_API_USER==undefined || 
