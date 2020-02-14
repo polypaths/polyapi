@@ -81,7 +81,7 @@ async function batch(host,cmd_array){
             //console.log(`Running "${cmd_array[i]}" on "${host}"`);
             var fname = null;
             for (var a=0;a<arr.length;a++) {
-                if (arr[a] == "job_file" || arr[a] == "in_file") {
+                if (arr[a] == "job_file" || arr[a] == "in_file" || arr[a] == "filter_file") {
                     fname = arr[a+1];
                 }
             }
@@ -133,7 +133,7 @@ async function main() {
 
             var fname = null;
             for (var a=0;a<args.length;a++) {
-                if (args[a] == "job_file" || args[a] == "in_file") {
+                if (args[a] == "job_file" || args[a] == "in_file" || args[a] == "filter_file") {
                     fname = args[a+1];
                     args[a+1] = path.basename(fname);
                 }
