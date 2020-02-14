@@ -95,7 +95,7 @@ async function batch(host,cmd_array){
     process.exit(0);
 };
 
-const version = "Polyapi v1.04 12/5/2019";
+const version = "Polyapi v1.05 2/14/2020";
 async function main() {
     var args = process.argv.slice(2);
     if (process.env.PP_API_HOST==undefined || process.env.PP_API_USER==undefined || 
