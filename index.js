@@ -134,7 +134,7 @@ async function main() {
             var fname = null;
             for (var a=0;a<args.length;a++) {
                 if(args[a] == "job_file") {
-                    var ret = await api(host, "getisjobfileinput " + args[1],null);   // check the job file is input or output base on job type
+                    var ret = await api(host, "getisjobfileinput "+args[1],null);   // check the job file is input or output base on job type
                     if(ret == 1) {                                                  // if it is input, will use postfile option
                         fname = args[a+1];
                         args[a+1] = path.basename(fname);                    
