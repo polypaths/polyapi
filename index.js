@@ -138,12 +138,12 @@ async function main() {
                     var ret = await api(host, "getisjobfileinput "+command,null);   // check the job file is input or output base on job type                    
                     if(ret.data == 1) {                                                  // if it is input, will use postfile option
                         fname = args[a+1];
-                        args[a+1] = path.basename(fname);                    
+                        args[a+1] = path.basename(fname.toLowerCase());                    
                     }
                 } else if (args[a] == "in_file" || args[a] == "filter_file") {
                     
                     fname = args[a+1];
-                    args[a+1] = path.basename(fname);                    
+                    args[a+1] = path.basename(fname.toLowerCase());                    
                 }
             }
             var command = args.join(' '); // args.slice(1).join(' ');
