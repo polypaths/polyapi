@@ -95,7 +95,7 @@ async function batch(host,cmd_array){
     process.exit(0);
 };
 
-const version = "Polyapi v1.08 6/17/2020";
+const version = "Polyapi v1.07 2/27/2020";
 async function main() {
     var args = process.argv.slice(2);
     if (process.env.PP_API_HOST==undefined || process.env.PP_API_USER==undefined || 
@@ -138,12 +138,12 @@ async function main() {
                     var ret = await api(host, "getisjobfileinput "+command,null);   // check the job file is input or output base on job type                    
                     if(ret.data == 1) {                                                  // if it is input, will use postfile option
                         fname = args[a+1];
-                        args[a+1] = path.basename(fname.toLowerCase());                    
+                        args[a+1] = path.basename(fname);                    
                     }
                 } else if (args[a] == "in_file" || args[a] == "filter_file") {
                     
                     fname = args[a+1];
-                    args[a+1] = path.basename(fname.toLowerCase());                    
+                    args[a+1] = path.basename(fname);                    
                 }
             }
             var command = args.join(' '); // args.slice(1).join(' ');
