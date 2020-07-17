@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",            
+            "program": "${workspaceFolder}/index.js",            
+            //"args": ["execute", "ss", "mr", "download", "asof", "20200203", "job_file", "out1.mr"]
+            "args": ["execute", "scenario_upload_job", "job_file", "d:/temp/PP_SCN_REVIEW_CAPS.scn"]
+        }
+    ]
+}
