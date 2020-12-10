@@ -166,7 +166,7 @@ async function main() {
                 if (msg.includes("ERROR:") || msg.includes("not supported"))
                     process.exit(-1);
                 else if (msg.includes("Finished"))
-                    process.exit(1);
+                    process.exit(0);
                 else if (msg.startsWith("Running") || msg.startsWith("Waiting") 
                     || msg.startsWith("Scheduled") || msg.startsWith("Pending"))
                     process.exit(2);

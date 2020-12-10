@@ -1,0 +1,6 @@
+<PolyBOFilter>
+	<BOFlag><BatchJob>Y</BatchJob></BOFlag>
+    <BOFilter><BatchJob>
+        <BatchName>Test</BatchName>
+    </BatchJob> </BOFilter>
+</PolyBOFilter>

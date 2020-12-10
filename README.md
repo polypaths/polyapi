@@ -80,6 +80,28 @@ the following command will generate a csv report called "report_out.csv"
 
 - polyapi.exe report_out.csv **report** pt Hist Price **on** Market Sheet **asof** 20130103 **from** 20121001 **-secid** FNCI 3 **format csv**
 
+### polyapi.exe exportbo 
+
+- polyapi.exe exportbo filter_file job_filter.xml > job.xml
+
+sample job_filter.xml
+```
+<PolyBOFilter>
+	<BOFlag><BatchJob>Y</BatchJob></BOFlag>
+    <BOFilter><BatchJob>
+        <BatchName>Job 1</BatchName>
+        <BatchName>Job 2</BatchName>
+    </BatchJob> </BOFilter>
+</PolyBOFilter>
+
+<PolyBOFilter>
+	<BOFlag><Screen>Y</Screen></BOFlag>
+    <BOFilter><Screen>
+        <Name>Screen 1</Name>
+        <Name>Screen 2</Name>
+    </Screen> </BOFilter>
+</PolyBOFilter>
+```
 ### polyapi.exe importbo in_file
 
 The **importbo** command allows you to create/update anything in Enterprise programmatically
@@ -127,8 +149,7 @@ Status Codes (exit code) from this command line tool. This should be used to dri
 -3 : System Errors, such as wrong host name, network error, etc...
 -2 : (Enterprise Job) Failed, Killed, for backward compatibility
 -1 : Enterprise Errors, such as Cannot find the job name
- 0 : Successful
- 1 : (Enterprise Job) Finished
+ 0 : Successful or (Enterprise Job) Finished
  2 : (Enterprise Job) Running, Scheduled, Waiting, Pending
  n : For status queries that returns a number
 ```
