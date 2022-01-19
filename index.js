@@ -95,7 +95,7 @@ async function batch(host,cmd_array){
     process.exit(0);
 };
 
-const version = "Polyapi v1.08 9/21/2021";
+const version = "Polyapi v1.09 1/19/2022";
 async function main() {
     var args = process.argv.slice(2);
     if (process.env.PP_API_HOST==undefined || process.env.PP_API_USER==undefined || 
@@ -147,7 +147,7 @@ async function main() {
                 }
             }
             var command = args.join(' '); // args.slice(1).join(' ');
-            var ret = await api(host,command,fname);
+            var ret = await api(host,encodeURIComponent(command),fname);
 
             var msg = "",ret_number=0;
             if (ret.data != undefined) {
