@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Description:  a filter to export all BO definition xmls.
+Last Update: 10/17/2022
+-->
+<PolyBOFilter>
+	<BOFlag>
+		<AccessCode>Y</AccessCode>
+		<AccessPrivilege>Y</AccessPrivilege>
+		<Assumption>Y</Assumption>
+		<BatchJob>Y</BatchJob>
+		<Calendar>Y</Calendar>
+		<CCModel>Y</CCModel>
+		<ChartTemplates>Y</ChartTemplates>
+		<ColumnTranslation>Y</ColumnTranslation>
+		<CorpPreference>Y</CorpPreference>
+		<DisplaySpec>Y</DisplaySpec>
+		<Entity>Y</Entity>
+		<EntityRelation>Y</EntityRelation>
+		<!--FieldTypePolypaths>Y</FieldTypePolypaths-->
+		<FieldTypeUserDefined>Y</FieldTypeUserDefined>
+		<Filter>Y</Filter>
+		<FilterRelation>Y</FilterRelation>
+		<LookupTable>Y</LookupTable>
+		<Portfolio>Y</Portfolio>
+		<PortfolioPermission>Y</PortfolioPermission>
+		<PortfolioRelation>Y</PortfolioRelation>
+		<PricingSource>Y</PricingSource>
+		<PricingMatrix>Y</PricingMatrix>
+		<PricingMatrixNew>Y</PricingMatrixNew>
+		<Scenario>Y</Scenario>
+		<ScenarioOrder>Y</ScenarioOrder>
+		<ScenarioSet>Y</ScenarioSet>
+		<Screen>Y</Screen>
+		<SecurityDefaultValue>Y</SecurityDefaultValue>
+		<SecurityIDTranslation>Y</SecurityIDTranslation>
+		<Sequence>Y</Sequence>
+		<SystemConfig>Y</SystemConfig>
+	</BOFlag>
+</PolyBOFilter>

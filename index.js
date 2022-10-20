@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+var FormData = require('form-data');
 
 function file2StringArray(filename) {
     try {
@@ -12,50 +13,38 @@ function file2StringArray(filename) {
         return null;
     }
 };
-async function upload(host,fn) {
-    try {
-        return await require('request-promise').post({url:host,
-            formData: {file: require('fs').createReadStream(fn)}} );
-    } catch (error) {
-        return {error:error.message};
-    }
-}
+
 // returns {status, data}
 async function api(host,cmd,fname=null) {
     try {
-
+        var axiosConfig = {}, form={}
         if (fname != null) {
-            var options = {
-                method: 'POST',
-                uri: 'http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd,
-                formData: {
-                    file: {
-                        value: fs.createReadStream(fname),
-                        options: {filename: fname }
-                    }
-                },
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'UserName': process.env.PP_API_USER,
-                    'Password': process.env.PP_API_PASSWORD,
-                    'PostFile': 'True'
-                }
-            };
-            var rp = require('request-promise');
-            let ret = await rp(options).promise();
-            return {status:200, data:ret};
+            f = fs.readFileSync(fname, 'utf8') ; // await fsp.readFile(fname) or fs.createReadStream(fname)
+            console.log(f.length);
+            console.log(f.slice(-10));
+            form = new FormData();
+            form.append('file', f , fname); 
+
+            axiosConfig = {headers: {
+                'Content-Type': 'multipart/form-data',
+                'UserName': process.env.PP_API_USER,
+                'Password': process.env.PP_API_PASSWORD,
+                'PostFile': 'True',
+                'Content-Length': form.getLengthSync()
+            }};
+
         } else {
-            let axiosConfig = {headers: { UserName: process.env.PP_API_USER,Password: process.env.PP_API_PASSWORD }};
-            let form = null;
-            try {
-                let ret = await axios.post('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
-                return {status:ret.status, data:ret.data}; //ret.data.trim()
-            } catch (e) {
-                if (e.response == undefined)
-                    return {status:-1, data:e.errno};
-                else
-                    return {status:e.response.status, data:e.response.data};
-            }
+            axiosConfig = {headers: { UserName: process.env.PP_API_USER,Password: process.env.PP_API_PASSWORD }};
+            form = null;
+        }
+        try {
+            let ret = await axios.post('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
+            return {status:ret.status, data:ret.data}; //ret.data.trim()
+        } catch (e) {
+            if (e.response == undefined)
+                return {status:-1, data:e.errno};
+            else
+                return {status:e.response.status, data:e.response.data};
         }
     } catch (error) {
         return {status:error.status, data:"ERROR"+","+error.message};
@@ -130,7 +119,7 @@ async function main() {
             await batch(host,cmd_array);
             console.log("Batch finished.");
         } else {
-
+            
             var fname = null;
             for (var a=0;a<args.length;a++) {
                 if(args[a] == "job_file") {
@@ -148,7 +137,6 @@ async function main() {
             }
             var command = args.join(' '); // args.slice(1).join(' ');
             var ret = await api(host,encodeURIComponent(command),fname);
-
             var msg = "",ret_number=0;
             if (ret.data != undefined) {
                 if (typeof ret.data == "number") {
@@ -162,6 +150,8 @@ async function main() {
                     msg = ret.data.trim();
                     console.log(msg);
                 }
+            } else {
+                console.log("Returned data is undefined; status:"+ret.status);
             }
             if (msg.includes("ERROR:") || msg.includes("not supported"))
                     process.exit(-1);
