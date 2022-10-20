@@ -20,8 +20,7 @@ async function api(host,cmd,fname=null) {
         var axiosConfig = {}, form={}
         if (fname != null) {
             f = fs.readFileSync(fname, 'utf8') ; // await fsp.readFile(fname) or fs.createReadStream(fname)
-            console.log(f.length);
-            console.log(f.slice(-10));
+            // console.log("Start uploading "+f.length+" bytes that ends with "+f.slice(-10));
             form = new FormData();
             form.append('file', f , fname); 
 

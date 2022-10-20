@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PolyBO DbVersion="7.13.0.Beta"
-        JarVersion="7.13.0.Beta"
-        SVNRevision="26152">
-	<PolyPortfolios>
-		<Portfolios Count="3">
-			<Portfolio>
-				<AccountType>P</AccountType>
-				<IsCached>N</IsCached>
-				<IsRollup>N</IsRollup>
-				<AccountName>Cliff_master</AccountName>
-				<Status>A</Status>
-				<PortUpdateDate>10/10/2022</PortUpdateDate>
-				<PortUpdateReason>CF_test3_bi</PortUpdateReason>
-				<VarConfidence>95.0</VarConfidence>
-				<UserName>cweng</UserName>
-			</Portfolio>
-		</Portfolios>
-	</PolyPortfolios>
-</PolyBO>
+<PolyBOFilter>
+	<BOFlag>
+		<BatchJob>Y</BatchJob>
+		<Assumption>Y</Assumption>
+	</BOFlag>
+	<BOFilter>
+		<BatchJob>
+			<BatchName>calc test</BatchName>
+			<BatchName>csv*</BatchName>
+		</BatchJob>
+		<Assumption>
+			<AssumptionName>espiel</AssumptionName>
+		</Assumption>
+	</BOFilter>
+</PolyBOFilter>
