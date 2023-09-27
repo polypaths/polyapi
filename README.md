@@ -19,6 +19,9 @@ set PP_API_HOST=cc_server
 set PP_API_USER=adminuser
 set PP_API_PASSWORD=adminpass
 
+rem === optional setting to enable connecting to https server
+set PP_API_ENABLE_HTTPS=true
+
 rem === following two lines toggle between launching a built exe versus the script  
 rem polyapi.exe %*
 node index.js %*
