@@ -1,3 +1,4 @@
+const https = require('https');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
@@ -17,7 +18,8 @@ function file2StringArray(filename) {
 // returns {status, data}
 async function api(host,cmd,fname=null) {
     try {
-        var axiosConfig = {}, form={}
+        var axiosConfig = {}, form={};
+
         if (fname != null) {
             f = fs.readFileSync(fname, 'utf8') ; // await fsp.readFile(fname) or fs.createReadStream(fname)
             // console.log("Start uploading "+f.length+" bytes that ends with "+f.slice(-10));
@@ -37,7 +39,15 @@ async function api(host,cmd,fname=null) {
             form = null;
         }
         try {
-            let ret = await axios.post('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
+            let ret;
+            if("true" == process.env.PP_API_ENABLE_HTTPS) {                                
+                const httpsAgent = new https.Agent({ rejectUnauthorized: false });                
+                axiosConfig.httpsAgent = httpsAgent;
+                ret = await axios.post('https://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
+            } else {
+                ret = await axios.post('http://'+host+'/poly/com.polypaths.ent.gui.pprequest.polyAPI?'+cmd, form, axiosConfig);
+            }
+            
             return {status:ret.status, data:ret.data}; //ret.data.trim()
         } catch (e) {
             if (e.response == undefined)
@@ -83,7 +93,7 @@ async function batch(host,cmd_array){
     process.exit(0);
 };
 
-const version = "Polyapi v1.09 1/19/2022";
+const version = "Polyapi v1.10 9/26/2023";
 async function main() {
     var args = process.argv.slice(2);
     if (process.env.PP_API_HOST==undefined || process.env.PP_API_USER==undefined || 
